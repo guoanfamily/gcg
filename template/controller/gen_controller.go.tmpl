@@ -1,0 +1,44 @@
+// generate by ginpt
+package controller
+
+import (
+  "net/http"
+  "github.com/labstack/echo"
+  "{{.ProjectName}}/model/{{underline .DBName}}"
+)
+
+func {{upperCamel .TableName}}Save(c echo.Context) error {
+    var obj service.{{upperCamel .TableName}}
+    c.Bind(&obj)
+    return c.JSON(http.StatusOK,ResultMsg(200,"ok",obj.Save))
+}
+
+func {{upperCamel .TableName}}Delete(c echo.Context) error {
+    var obj service.{{upperCamel .TableName}}
+    c.Bind(&obj)
+    return c.JSON(http.StatusOK,ResultMsg(200,"ok",obj.Delete))
+}
+
+func Get{{upperCamel .TableName}}Where(c echo.Context) error {
+    cond := c.QueryParam("cond")
+    arg :=c.QueryParam("arg")
+    var res interface{}
+    if arg!=""{
+        res =service.Get{{upperCamel .TableName}}Where(cond,arg)
+    }else {
+        res =service.Get{{upperCamel .TableName}}Where(cond)
+    }
+    return c.JSON(http.StatusOK,ResultMsg(200,"ok",res))
+}
+
+func Get{{upperCamel .TableName}}First(c echo.Context) error {
+    cond := c.QueryParam("cond")
+        arg :=c.QueryParam("arg")
+        var res interface{}
+        if arg!=""{
+            res =service.Get{{upperCamel .TableName}}First(cond,arg)
+        }else {
+            res =service.Get{{upperCamel .TableName}}First(cond)
+        }
+        return c.JSON(http.StatusOK,ResultMsg(200,"ok",res))
+}

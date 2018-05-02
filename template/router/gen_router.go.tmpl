@@ -1,0 +1,14 @@
+// generate by ginpt
+package router
+
+import (
+    "{{.ProjectName}}/controller"
+  	"github.com/labstack/echo"
+)
+
+func {{upperCamel .TableName}}Add(e *echo.Echo){
+	e.POST("/{{upperCamel .TableName}}Save",controller.{{upperCamel .TableName}}Save)
+	e.POST("/{{upperCamel .TableName}}Delete",controller.{{upperCamel .TableName}}Delete)
+	e.GET("/Get{{upperCamel .TableName}}Where",controller.Get{{upperCamel .TableName}}Where)
+	e.GET("/Get{{upperCamel .TableName}}First",controller.Get{{upperCamel .TableName}}First)
+}

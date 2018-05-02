@@ -1,0 +1,26 @@
+// generate by ginpt
+package controller
+
+//公共方法的返回信息
+type Result struct {
+	Code int
+	Msg string
+	Data interface{}
+}
+
+//错误状态码
+const Success  = 200
+const Error  = 201
+
+//错误信息
+const SuccessMsg = "成功"
+const ErrorMsg = "失败"
+
+func ResultMsg(code int ,msg string ,data interface{}) Result{
+	//res := new(Result)
+	return Result{
+		code,
+		msg,
+		data,
+	}
+}
