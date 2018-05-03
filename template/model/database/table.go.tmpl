@@ -37,10 +37,11 @@ func (obj *{{upperCamel .TableName}}) Save() int{
 /*
 delete
 */
-func (obj *{{upperCamel .TableName}}) Delete() {
+func (obj *{{upperCamel .TableName}}) Delete() bool{
     database := GetDB()
     sql := "update `{{.TableName}}` set deleted = 1  where id=?"
     database.MustExec(sql, obj.Id)
+    return true
 }
 /*
 Get List by Where
