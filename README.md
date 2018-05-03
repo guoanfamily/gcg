@@ -4,7 +4,7 @@ go 代码生成工具 基于sqlx echo mysql
 go code generater based on sqlx echo by mysql
 # install
 
-go get github.com/guoanfamily/gcg ...
+go get github.com/guoanfamily/gcg
 
 # use
 
