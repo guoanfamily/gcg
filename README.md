@@ -48,7 +48,7 @@ projectname
 ```
 5.run the project
 ```sh
-go run
+go run main.go
 ```
 
 6.additional command
