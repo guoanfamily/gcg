@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/shopspring/decimal"
-	"golang.org/x/text/encoding/simplifiedchinese"
-	"golang.org/x/text/transform"
+	//"golang.org/x/text/encoding/simplifiedchinese"
+	//"golang.org/x/text/transform"
 
 	// 支持gif,jpeg,png的处理
 	_ "image/gif"
@@ -109,20 +109,20 @@ func JSONStringToMap(jsonStr string) (map[string]interface{}, error) {
 }
 
 // ToGBK to gbk
-func ToGBK(s string) (string, error) {
-	enc := simplifiedchinese.GBK
-	trans := enc.NewEncoder()
-	r, _, err := transform.String(trans, s)
-	return r, err
-}
+//func ToGBK(s string) (string, error) {
+//	enc := simplifiedchinese.GBK
+//	trans := enc.NewEncoder()
+//	r, _, err := transform.String(trans, s)
+//	return r, err
+//}
 
 // FromGBK from gbk
-func FromGBK(s string) (string, error) {
-	enc := simplifiedchinese.GBK
-	trans := enc.NewDecoder()
-	r, _, err := transform.String(trans, s)
-	return r, err
-}
+//func FromGBK(s string) (string, error) {
+//	enc := simplifiedchinese.GBK
+//	trans := enc.NewDecoder()
+//	r, _, err := transform.String(trans, s)
+//	return r, err
+//}
 
 var (
 	chars = []byte("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
