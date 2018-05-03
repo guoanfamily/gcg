@@ -27,7 +27,7 @@ func GetDB() *sqlx.DB {
 	if err != nil {
 		panic(err)
 	}
-	dbInfo.SetMaxIdleConns(10)
+	dbInfo.SetMaxIdleConns(0)
 	dbInfo.SetMaxOpenConns(100)
 	dbInfo.Ping()
 	return dbInfo
