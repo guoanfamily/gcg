@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"strings"
 	sh "github.com/codeskyblue/go-sh"
-	"github.com/domego/gokits"
+	"github.com/guoanfamily/gcg/gokits"
 	"github.com/guoanfamily/gcg/gens/common"
 	"github.com/guoanfamily/gcg/gens/funcs"
 	_ "github.com/go-sql-driver/mysql"
