@@ -1,9 +1,9 @@
 - Name: service
-  ProjectName: gcg
-  Database: meetsign
-  Username: guoanjia
-  Password: "Guoanjia123456"
-  Host: rm-2ze2y2k3554s14j47o.mysql.rds.aliyuncs.com
+  ProjectName: gcgtest
+  Database: mysql
+  Username: root
+  Password: ""
+  Host: localhost
   Port: 3306
   Table: "company_info,ebook"
   ServicePort: 9091
