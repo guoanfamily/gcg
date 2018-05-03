@@ -7,8 +7,8 @@ import (
 	"strings"
 	sh "github.com/codeskyblue/go-sh"
 	"github.com/domego/gokits"
-	"gcg/gens/common"
-	"gcg/gens/funcs"
+	"github.com/guoanfamily/gcg/gens/common"
+	"github.com/guoanfamily/gcg/gens/funcs"
 	_ "github.com/go-sql-driver/mysql"
 
 	yaml "gopkg.in/yaml.v2"

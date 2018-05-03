@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"gcg/gens/common"
+	"github.com/guoanfamily/gcg/gens/common"
 	"log"
 )
 

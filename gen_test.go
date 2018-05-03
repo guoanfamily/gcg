@@ -1,9 +1,9 @@
 package main
 
 import (
-	 "gcg/gens/common"
+	 "github.com/guoanfamily/gcg/gens/common"
 	"testing"
-	"gcg/gens/orm"
+	"github.com/guoanfamily/gcg/gens/orm"
 	//"gcg/model/service"
 )
 //go:generate go-bindata -o ./bindata.go -prefix "./template/" ./template/...
@@ -12,7 +12,7 @@ func TestGen(t *testing.T) {
 	genutils.SetValues(map[string]interface{}{
 		"RootPath": "./",
 	})
-	orm.Gen("config.yaml")
+	orm.Gen("config.yaml","init","")
 }
 
 //func TestSave(t *testing.T)  {

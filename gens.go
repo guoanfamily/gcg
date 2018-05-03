@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/domego/gopt/gens/common"
-	"gcg/gens/orm"
+	"github.com/guoanfamily/gcg/gens/common"
+	"github.com/guoanfamily/gcg/gens/orm"
 )
 
 

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"text/template"
 	sh "github.com/codeskyblue/go-sh"
-	"gcg/gens/funcs"
+	"github.com/guoanfamily/gcg/gens/funcs"
 	"log"
 )
 
