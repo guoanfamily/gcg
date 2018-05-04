@@ -53,7 +53,7 @@ go run main.go
 
 if you want add table in your exist project,just run ,split tablename with ','
 ```sh
-gcg add [tablename1,tablename2]
+gcg add [-tables=tablename1,tablename2]
 ```
 and then add this code in your router.go file
 ```golang
