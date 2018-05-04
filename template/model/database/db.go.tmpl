@@ -5,11 +5,6 @@ package {{underline .Name}}
 import (
 	"github.com/guoanfamily/sqlx"
 	_ "github.com/go-sql-driver/mysql"
-	"fmt"
-	"log"
-	"gopkg.in/yaml.v2"
-	"io/ioutil"
-	"os"
 )
 
 var (
@@ -20,10 +15,7 @@ func GetDB() *sqlx.DB {
 	if dbInfo != nil {
 		return dbInfo
 	}
-	s,_:=os.Getwd()
-    dbs :=parseDBFile(s+"/config.yaml")
-    source :=genSource(dbs[0].(map[interface{}]interface{}))
-    dbInfo, err := sqlx.Connect("mysql", source+"&parseTime=True&loc=Local")
+    dbInfo, err := sqlx.Connect("mysql", "{{.Source}}&parseTime=True&loc=Local")
 	if err != nil {
 		panic(err)
 	}
@@ -38,33 +30,4 @@ func CloseDB() {
 		dbInfo.DB.Close()
 	}
 	dbInfo = nil
-}
-
-// parseDBFile 解析出db配置文件信息
-func parseDBFile(dbFile string) []interface{} {
-	var bs []byte
-	var err error
-	var dbs interface{}
-	if bs, err = ioutil.ReadFile(dbFile); err != nil {
-		log.Fatalf("%s", err)
-	}
-	if err = yaml.Unmarshal(bs, &dbs); err != nil {
-		log.Fatalf("%s", err)
-	}
-	return dbs.([]interface{})
-}
-
-// genSource 生成db连接字符串
-func genSource(db map[interface{}]interface{}) string{
-	pwd := db["Password"].(string)
-	if pwd != "" {
-		pwd = ":" + pwd
-	}
-	port := 3306
-	portObj, ok := db["Port"]
-	if ok {
-		port = portObj.(int)
-	}
-	source := fmt.Sprintf("%s%s@tcp(%s:%d)/%s?charset=utf8", db["Username"], pwd, db["Host"], port, db["Database"])
-	return source
 }

@@ -10,9 +10,9 @@ import (
 	"github.com/guoanfamily/gcg/gens/common"
 	"github.com/guoanfamily/gcg/gens/funcs"
 	_ "github.com/go-sql-driver/mysql"
-
 	yaml "gopkg.in/yaml.v2"
 	"log"
+	"os"
 )
 
 var typeMap = [][]string{
@@ -166,7 +166,8 @@ func loadDBMetaInfo(databaseDir string,tables string, dbInfo map[interface{}]int
 		log.Fatalf("%s", err)
 	}
 	dbName := dbInfo["Name"].(string)
-	projectName := dbInfo["ProjectName"].(string)
+	//获取项目路径
+	projectName := getProjectFolderName()//dbInfo["ProjectName"].(string)
 	if(tables=="" && isInit){
 		tables = dbInfo["Table"].(string)
 	}
@@ -351,4 +352,13 @@ func strFirstToUpper(str string) string {
 		}
 	}
 	return upperStr
+}
+
+/**
+ * 获取项目文件夹名称
+ */
+func getProjectFolderName() string {
+	s,_:=os.Getwd()
+	folders := strings.Split(s,"/")
+	return folders[len(folders)-1]
 }
