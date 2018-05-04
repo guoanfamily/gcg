@@ -5,6 +5,9 @@ import (
 	"testing"
 	"github.com/guoanfamily/gcg/gens/orm"
 	//"gcg/model/service"
+	"os"
+	"strings"
+	"fmt"
 )
 //go:generate go-bindata -o ./bindata.go -prefix "./template/" ./template/...
 func TestGen(t *testing.T) {
@@ -24,3 +27,10 @@ func TestGen(t *testing.T) {
 //	ci.PeopleNum = &i
 //	ci.Save()
 //}
+
+func TestProjectFolderName(t *testing.T)  {
+	s,_:=os.Getwd()
+	folders := strings.Split(s,"\\")
+	rs:= folders[len(folders)-1]
+	fmt.Println(rs)
+}

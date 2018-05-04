@@ -359,6 +359,6 @@ func strFirstToUpper(str string) string {
  */
 func getProjectFolderName() string {
 	s,_:=os.Getwd()
-	folders := strings.Split(s,"/")
+	folders := strings.Split(s,"\\")
 	return folders[len(folders)-1]
 }
