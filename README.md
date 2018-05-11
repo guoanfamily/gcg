@@ -16,7 +16,6 @@ cd projectname
 2. create a config.yaml file and edit it like this:
 ```yaml
 - Name: service
-  ProjectName: gcgtest
   Database: mysql
   Username: root
   Password: ""
@@ -27,7 +26,7 @@ cd projectname
 ```
 3.init the project use command in your project folder
 ```sh
-gcg init
+gcg init [-config=config.yaml]
 ```
 
 4.the file struct like this
@@ -44,7 +43,6 @@ projectname
 ----gen_table.go
 ----router.go
 --main.go
---config.yaml
 ```
 5.run the project
 ```sh
@@ -55,7 +53,7 @@ go run main.go
 
 if you want add table in your exist project,just run ,split tablename with ','
 ```sh
-gcg add [tablename1,tablename2]
+gcg add [-tables=tablename1,tablename2]
 ```
 and then add this code in your router.go file
 ```golang
