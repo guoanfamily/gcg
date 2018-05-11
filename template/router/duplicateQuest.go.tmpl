@@ -1,0 +1,68 @@
+// generate by gcg
+package router
+
+import (
+	"time"
+	"github.com/labstack/echo"
+	"net/http"
+	"fmt"
+	"crypto/md5"
+	"io"
+)
+
+type (
+	Duplicate struct {
+		RequestList     map[string]time.Time
+		CacheMSecond	int64
+		CheckList	[]string
+	}
+)
+
+func NewDuplicates(cachemsd int64,checklist []string) *Duplicate {
+	return &Duplicate{
+		RequestList:make(map[string]time.Time),
+		CacheMSecond:cachemsd,
+		CheckList:checklist,
+		}
+}
+// Process is the middleware function.
+func (s *Duplicate) Process(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		for _,v :=range s.CheckList{
+			if v==c.Path(){
+				//clear up 2 secend and save request
+				for k,t :=range s.RequestList{
+					fmt.Println(time.Now().Sub(t))
+					duration := time.Now().Sub(t)
+					println(duration)
+					if int64(time.Now().Sub(t)/1000000)>s.CacheMSecond{
+						delete(s.RequestList, k)
+					}
+				}
+				//is crash
+				key := c.Request().Header.Get("Requestkey")
+				if key==""{
+					return echo.ErrUnauthorized
+				}
+				w := md5.New()
+				fmt.Println(c.Path())
+				io.WriteString(w, c.Path()+key)   //将str写入到w中
+				md5key:= fmt.Sprintf("%x", w.Sum(nil))  //w.Sum(nil)将w的hash转成[]byte格式
+
+				if !s.RequestList[md5key].IsZero() {
+					return echo.NewHTTPError(http.StatusServiceUnavailable)
+				} else {
+					s.RequestList[md5key] = time.Now()
+					if err := next(c); err != nil {
+						c.Error(err)
+					}
+					return nil
+				}
+			}
+		}
+		if err := next(c); err != nil {
+			c.Error(err)
+		}
+		return nil
+	}
+}

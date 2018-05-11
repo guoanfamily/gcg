@@ -104,6 +104,7 @@ func Gen(dbFile string,name string,tbs string) {
 			tables["TableNames"] = sts
 			tables["ServicePort"] = db["ServicePort"]
 			genutils.GenFileWithTargetPath("router/router.go.tmpl", "router/router.go", tables)
+			genutils.GenFileWithTargetPath("router/duplicateQuest.go.tmpl", "router/duplicateQuest.go", tables)
 			sh.Command("gofmt", "-w", ".", sh.Dir("router")).Run()
 			//生成main
 			db["ProjectName"] = getProjectFolderName()
