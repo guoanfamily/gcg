@@ -21,7 +21,7 @@ func (obj *{{upperCamel .TableName}}) Save() int{
   var id int
   database := GetDB()
   if (obj.Id == 0) {
-    sql ="INSERT INTO `{{.TableName}}` ({{getTableFieldNames .Columns}}) values ({{getTableFieldCounts .Columns}})"
+    sql ="INSERT INTO `{{.TableName}}` ({{getInsertColumn .Columns}}) values ({{getTableFieldCounts .Columns}})"
     res := database.MustExec(sql,{{getObjColumn .Columns}} )
     retid, _ := res.LastInsertId()
     id = int(retid)

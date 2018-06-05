@@ -61,6 +61,7 @@ func Gen(dbFile string,name string,tbs string) {
 	funcs.FuncMap["getTableFieldCounts"] = GetTableFieldCounts
 	funcs.FuncMap["getObjColumn"] = GetObjColumn
 	funcs.FuncMap["getUpdateColumn"] = GetUpdateColumn
+	funcs.FuncMap["getInsertColumn"] = GetInsertColumn
 
 	// mkdirs
 	genutils.InitDirs(dirs)
@@ -238,7 +239,9 @@ func loadTableMetaInfo(db *sql.DB, tableName, dbName string,projectName string) 
 		"Columns":         columnInfoList,
 	}
 }
-
+/*
+转换数据库类型为go类型
+ */
 func toGoType(s, null string) string {
 	for _, v := range typeMap {
 		if strings.HasPrefix(s, v[0]) {
@@ -305,10 +308,14 @@ func GetTableFieldNames(args []*ColumnInfo) string {
 func GetTableFieldCounts(args []*ColumnInfo) string {
 	names := []string{}
 	for _,a :=range args{
-		if a.Field == "id"{
+		if a.Field == "id" || a.Field=="updatetime" || a.Field=="deleted"{
 			continue
 		}
-		names = append(names, "?")
+		if a.Field =="createtime" {
+			names = append(names, "now()")
+		}else {
+			names = append(names, "?")
+		}
 	}
 	return strings.Join(names, ", ")
 }
@@ -316,7 +323,7 @@ func GetTableFieldCounts(args []*ColumnInfo) string {
 func GetObjColumn(args []*ColumnInfo) string {
 	names := []string{}
 	for _,a :=range args{
-		if a.Field == "id"{
+		if a.Field == "id" || a.Field =="createtime" || a.Field=="updatetime" || a.Field=="deleted" {
 			continue
 		}
 		names = append(names, fmt.Sprintf("obj.%s",strFirstToUpper(a.Field)))
@@ -327,10 +334,21 @@ func GetObjColumn(args []*ColumnInfo) string {
 func GetUpdateColumn(args []*ColumnInfo) string {
 	names := []string{}
 	for _,a :=range args{
-		if a.Field == "id"{
+		if a.Field == "id"|| a.Field =="createtime" || a.Field=="updatetime" || a.Field=="deleted"{
 			continue
 		}
 		names = append(names, fmt.Sprintf("%s=?",a.Field))
+	}
+	return strings.Join(names, ", ")
+}
+
+func GetInsertColumn(args []*ColumnInfo) string {
+	names := []string{}
+	for _, a := range args {
+		if a.Field == "id" || a.Field=="updatetime" || a.Field=="deleted"{
+			continue
+		}
+		names = append(names, fmt.Sprintf("`%s`", a.Field))
 	}
 	return strings.Join(names, ", ")
 }
