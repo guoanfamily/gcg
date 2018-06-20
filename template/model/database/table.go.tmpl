@@ -48,7 +48,6 @@ Get List by Where
 */
 func Get{{upperCamel .TableName}}Where(cond string, args ...interface{}) []*{{upperCamel .TableName}} {
   objs := []*{{upperCamel .TableName}}{}
-  //var objs = make([]HbDetail, 0)
   database := GetDB()
   sql :="SELECT {{getTableFieldNames .Columns}} FROM `{{.TableName}}` WHERE deleted = 0 "
   if cond != ""{
