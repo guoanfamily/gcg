@@ -3,16 +3,16 @@ package orm
 import (
 	"database/sql"
 	"fmt"
-	"io/ioutil"
-	"strings"
 	sh "github.com/codeskyblue/go-sh"
-	"github.com/guoanfamily/gcg/gokits"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/guoanfamily/gcg/gens/common"
 	"github.com/guoanfamily/gcg/gens/funcs"
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/guoanfamily/gcg/gokits"
 	yaml "gopkg.in/yaml.v2"
+	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 )
 
 var typeMap = [][]string{
@@ -22,7 +22,7 @@ var typeMap = [][]string{
 	{"varchar", "string", "*string"},
 	{"char", "string", "*string"},
 	{"text", "string", "*string"},
-	{"json","string","*string"},
+	{"json", "string", "*string"},
 	{"tinytext", "string", "*string"},
 	{"datetime", "time.Time", "*time.Time"},
 	{"date", "time.Time", "*time.Time"},
@@ -42,13 +42,15 @@ type ColumnInfo struct {
 	ThriftType string
 	Required   string
 }
-var isInit=false
+
+var isInit = false
+
 // Gen gen
-func Gen(dbFile string,name string,tbs string) {
+func Gen(dbFile string, name string, tbs string) {
 	var databaseDir string
 
-	if name=="init"{
-		isInit=true
+	if name == "init" {
+		isInit = true
 	}
 	dirs := []string{
 		"controller",
@@ -75,34 +77,34 @@ func Gen(dbFile string,name string,tbs string) {
 		databaseDir = "model/" + db["Name"].(string)
 		genutils.MkDirIfNotExists(databaseDir)
 		//生成表service代码
-		loadDBMetaInfo(databaseDir,tbs, db)
+		loadDBMetaInfo(databaseDir, tbs, db)
 		// log.Debugf("%v", db)
 		//生成db连接代码
-		if(isInit){
+		if isInit {
 			genutils.GenFileWithTargetPath("model/database/db.go.tmpl", databaseDir+"/gen_db.go", db)
 		}
 		sh.Command("gofmt", "-w", ".", sh.Dir(databaseDir)).Run()
 		//生成controller层表相关代码
-		for _,tableMeta :=range db["TableMetas"].([]interface{}){
+		for _, tableMeta := range db["TableMetas"].([]interface{}) {
 			model := tableMeta.(map[interface{}]interface{})
 			genutils.GenFileWithTargetPath("controller/gen_controller.go.tmpl", "controller/gen_"+model["TableName"].(string)+".go", tableMeta)
 		}
 
 		//生成controller层公共代码
-		if(isInit) {
+		if isInit {
 			genutils.GenFileWithTargetPath("controller/controller.go.tmpl", "controller/controller.go", nil)
 		}
 		sh.Command("gofmt", "-w", ".", sh.Dir("controller")).Run()
 		//生成router层代码
 		var tables = make(map[string]interface{})
 		var sts []string
-		for _,tableMeta :=range db["TableMetas"].([]interface{}){
+		for _, tableMeta := range db["TableMetas"].([]interface{}) {
 			model := tableMeta.(map[interface{}]interface{})
-			sts = append(sts,model["TableName"].(string))
+			sts = append(sts, model["TableName"].(string))
 			genutils.GenFileWithTargetPath("router/gen_router.go.tmpl", "router/gen_"+model["TableName"].(string)+".go", tableMeta)
 		}
 		sh.Command("gofmt", "-w", ".", sh.Dir("router")).Run()
-		if(isInit) {
+		if isInit {
 			tables["TableNames"] = sts
 			tables["ServicePort"] = db["ServicePort"]
 			genutils.GenFileWithTargetPath("router/router.go.tmpl", "router/router.go", tables)
@@ -153,7 +155,7 @@ func genSource(db map[interface{}]interface{}) {
 }
 
 // loadDBMetaInfo 查询db元信息
-func loadDBMetaInfo(databaseDir string,tables string, dbInfo map[interface{}]interface{}) {
+func loadDBMetaInfo(databaseDir string, tables string, dbInfo map[interface{}]interface{}) {
 	var (
 		db         *sql.DB
 		rows       *sql.Rows
@@ -171,8 +173,8 @@ func loadDBMetaInfo(databaseDir string,tables string, dbInfo map[interface{}]int
 	}
 	dbName := dbInfo["Name"].(string)
 	//获取项目路径
-	projectName := getProjectFolderName()//dbInfo["ProjectName"].(string)
-	if(tables=="" && isInit){
+	projectName := getProjectFolderName() //dbInfo["ProjectName"].(string)
+	if tables == "" && isInit {
 		tables = dbInfo["Table"].(string)
 	}
 	genTablesArray := strings.Split(tables, ",")
@@ -183,7 +185,7 @@ func loadDBMetaInfo(databaseDir string,tables string, dbInfo map[interface{}]int
 		}
 		// 只加载配置的表
 		if tables == "*" || utils.IsInArray(genTablesArray, rowName) {
-			tableMeta = loadTableMetaInfo(db, rowName, dbName,projectName)
+			tableMeta = loadTableMetaInfo(db, rowName, dbName, projectName)
 			model := tableMeta.(map[interface{}]interface{})
 			//service层代码生成
 			genutils.GenFileWithTargetPath("model/database/table.go.tmpl", databaseDir+"/gen_"+model["TableName"].(string)+".go", tableMeta)
@@ -194,15 +196,16 @@ func loadDBMetaInfo(databaseDir string,tables string, dbInfo map[interface{}]int
 }
 
 // laodTableMetaInfo 查询表结构元信息
-func loadTableMetaInfo(db *sql.DB, tableName, dbName string,projectName string) interface{} {
+func loadTableMetaInfo(db *sql.DB, tableName, dbName string, projectName string) interface{} {
 	var (
-		rows            *sql.Rows
-		err             error
-		primaryKey      = "id"
-		primaryKeyType  = "int"
-		primaryKeyExtra = ""
-		autoIncrement   = false
-		columnInfoList  []*ColumnInfo
+		rows              *sql.Rows
+		err               error
+		primaryKey        = "id"
+		primaryKeyType    = "int"
+		primaryKeyDefault = "0"
+		primaryKeyExtra   = ""
+		autoIncrement     = false
+		columnInfoList    []*ColumnInfo
 	)
 	if rows, err = db.Query("SHOW COLUMNS FROM `" + tableName + "`"); err != nil {
 		log.Fatalf("%s", err)
@@ -224,25 +227,30 @@ func loadTableMetaInfo(db *sql.DB, tableName, dbName string,projectName string) 
 			primaryKey = c.Field
 			primaryKeyType = c.GoType
 			primaryKeyExtra = c.Extra
+			if primaryKeyType != "int" {
+				primaryKeyDefault = "\"\""
+			}
 			if c.Extra == "auto_increment" {
 				autoIncrement = true
 			}
 		}
 	}
 	return map[interface{}]interface{}{
-		"ProjectName":		projectName,
-		"DBName":          dbName,
-		"TableName":       tableName,
-		"PrimaryKey":      primaryKey,
-		"PrimaryKeyType":  primaryKeyType,
-		"PrimaryKeyExtra": primaryKeyExtra,
-		"AutoIncrement":   autoIncrement,
-		"Columns":         columnInfoList,
+		"ProjectName":       projectName,
+		"DBName":            dbName,
+		"TableName":         tableName,
+		"PrimaryKey":        primaryKey,
+		"PrimaryKeyType":    primaryKeyType,
+		"primaryKeyDefault": primaryKeyDefault,
+		"PrimaryKeyExtra":   primaryKeyExtra,
+		"AutoIncrement":     autoIncrement,
+		"Columns":           columnInfoList,
 	}
 }
+
 /*
 转换数据库类型为go类型
- */
+*/
 func toGoType(s, null string) string {
 	for _, v := range typeMap {
 		if strings.HasPrefix(s, v[0]) {
@@ -308,13 +316,13 @@ func GetTableFieldNames(args []*ColumnInfo) string {
 
 func GetTableFieldCounts(args []*ColumnInfo) string {
 	names := []string{}
-	for _,a :=range args{
-		if a.Field == "id" || a.Field=="updatetime" || a.Field=="deleted"{
+	for _, a := range args {
+		if a.Field == "id" || a.Field == "updatetime" || a.Field == "deleted" {
 			continue
 		}
-		if a.Field =="createtime" {
+		if a.Field == "createtime" {
 			names = append(names, "now()")
-		}else {
+		} else {
 			names = append(names, "?")
 		}
 	}
@@ -323,22 +331,22 @@ func GetTableFieldCounts(args []*ColumnInfo) string {
 
 func GetObjColumn(args []*ColumnInfo) string {
 	names := []string{}
-	for _,a :=range args{
-		if a.Field == "id" || a.Field =="createtime" || a.Field=="updatetime" || a.Field=="deleted" {
+	for _, a := range args {
+		if a.Field == "id" || a.Field == "createtime" || a.Field == "updatetime" || a.Field == "deleted" {
 			continue
 		}
-		names = append(names, fmt.Sprintf("obj.%s",strFirstToUpper(a.Field)))
+		names = append(names, fmt.Sprintf("obj.%s", strFirstToUpper(a.Field)))
 	}
 	return strings.Join(names, ", ")
 }
 
 func GetUpdateColumn(args []*ColumnInfo) string {
 	names := []string{}
-	for _,a :=range args{
-		if a.Field == "id"|| a.Field =="createtime" || a.Field=="updatetime" || a.Field=="deleted"{
+	for _, a := range args {
+		if a.Field == "id" || a.Field == "createtime" || a.Field == "updatetime" || a.Field == "deleted" {
 			continue
 		}
-		names = append(names, fmt.Sprintf("%s=?",a.Field))
+		names = append(names, fmt.Sprintf("%s=?", a.Field))
 	}
 	return strings.Join(names, ", ")
 }
@@ -346,14 +354,13 @@ func GetUpdateColumn(args []*ColumnInfo) string {
 func GetInsertColumn(args []*ColumnInfo) string {
 	names := []string{}
 	for _, a := range args {
-		if a.Field == "id" || a.Field=="updatetime" || a.Field=="deleted"{
+		if a.Field == "id" || a.Field == "updatetime" || a.Field == "deleted" {
 			continue
 		}
 		names = append(names, fmt.Sprintf("`%s`", a.Field))
 	}
 	return strings.Join(names, ", ")
 }
-
 
 /**
  * 字符串首字母转化为大写 ios_bbbbbbbb -> IosBbbbbbbbb
@@ -379,7 +386,7 @@ func strFirstToUpper(str string) string {
  * 获取项目文件夹名称
  */
 func getProjectFolderName() string {
-	s,_:=os.Getwd()
-	folders := strings.Split(s,"\\")
+	s, _ := os.Getwd()
+	folders := strings.Split(s, "\\")
 	return folders[len(folders)-1]
 }
