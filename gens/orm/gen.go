@@ -241,7 +241,7 @@ func loadTableMetaInfo(db *sql.DB, tableName, dbName string, projectName string)
 		"TableName":         tableName,
 		"PrimaryKey":        primaryKey,
 		"PrimaryKeyType":    primaryKeyType,
-		"primaryKeyDefault": primaryKeyDefault,
+		"PrimaryKeyDefault": primaryKeyDefault,
 		"PrimaryKeyExtra":   primaryKeyExtra,
 		"AutoIncrement":     autoIncrement,
 		"Columns":           columnInfoList,

@@ -20,7 +20,7 @@ func (obj *{{upperCamel .TableName}}) Save() int{
   var sql = ""
   var id int
   database := GetDB()
-  if (obj.Id == {{.primaryKeyDefault}} {
+  if (obj.Id == {{.PrimaryKeyDefault}}) {
     sql ="INSERT INTO `{{.TableName}}` ({{getInsertColumn .Columns}}) values ({{getTableFieldCounts .Columns}})"
     res := database.MustExec(sql,{{getObjColumn .Columns}} )
     retid, _ := res.LastInsertId()
