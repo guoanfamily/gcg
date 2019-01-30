@@ -227,7 +227,7 @@ func loadTableMetaInfo(db *sql.DB, tableName, dbName string, projectName string)
 			primaryKey = c.Field
 			primaryKeyType = c.GoType
 			primaryKeyExtra = c.Extra
-			if primaryKeyType != "int" {
+			if primaryKeyType != "int32" {
 				primaryKeyDefault = "\"\""
 			}
 			if c.Extra == "auto_increment" {
