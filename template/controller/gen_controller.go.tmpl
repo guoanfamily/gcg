@@ -9,13 +9,19 @@ import (
 
 func {{upperCamel .TableName}}Save(c echo.Context) error {
     var obj {{underline .DBName}}.{{upperCamel .TableName}}
-    c.Bind(&obj)
+    err :=c.Bind(&obj)
+    if err!=nil{
+    	return c.JSON(http.StatusOK, ResultMsg(200, err.Error(), ""))
+    }
     return c.JSON(http.StatusOK,ResultMsg(200,"ok",obj.Save()))
 }
 
 func {{upperCamel .TableName}}Delete(c echo.Context) error {
     var obj {{underline .DBName}}.{{upperCamel .TableName}}
-    c.Bind(&obj)
+    err :=c.Bind(&obj)
+    if err!=nil{
+        return c.JSON(http.StatusOK, ResultMsg(200, err.Error(), ""))
+    }
     return c.JSON(http.StatusOK,ResultMsg(200,"ok",obj.Delete()))
 }
 
