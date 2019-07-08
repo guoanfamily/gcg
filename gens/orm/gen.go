@@ -373,7 +373,7 @@ func strFirstToUpper(str string) string {
 	for y := 0; y < len(temp); y++ {
 		vv := []rune(temp[y])
 		for i := 0; i < len(vv); i++ {
-			if i == 0 {
+			if i == 0 && vv[i]>96 {
 				vv[i] -= 32
 				upperStr += string(vv[i]) // + string(vv[i+1])
 			} else {
