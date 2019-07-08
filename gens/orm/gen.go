@@ -28,6 +28,7 @@ var typeMap = [][]string{
 	{"date", "time.Time", "*time.Time"},
 	{"timestamp", "time.Time", "*time.Time"},
 	{"decimal", "float64", "*float64"},
+	{"float", "float64", "*float64"},
 }
 
 // ColumnInfo table column info
@@ -48,7 +49,6 @@ var isInit = false
 // Gen gen
 func Gen(dbFile string, name string, tbs string) {
 	var databaseDir string
-
 	if name == "init" {
 		isInit = true
 	}
