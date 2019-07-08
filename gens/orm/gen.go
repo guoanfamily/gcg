@@ -29,6 +29,7 @@ var typeMap = [][]string{
 	{"timestamp", "time.Time", "*time.Time"},
 	{"decimal", "float64", "*float64"},
 	{"float", "float64", "*float64"},
+	{"double", "float64", "*float64"},
 }
 
 // ColumnInfo table column info
