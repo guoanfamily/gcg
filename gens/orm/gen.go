@@ -22,7 +22,7 @@ var typeMap = [][]string{
 	{"varchar", "string", "*string"},
 	{"char", "string", "*string"},
 	{"text", "string", "*string"},
-	{"langtext", "string", "*string"},
+	{"longtext", "string", "*string"},
 	{"json", "string", "*string"},
 	{"tinytext", "string", "*string"},
 	{"datetime", "time.Time", "*time.Time"},
