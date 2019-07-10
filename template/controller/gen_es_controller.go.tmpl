@@ -1,0 +1,40 @@
+// generate by gcg
+package controller
+
+import (
+  "net/http"
+  "github.com/labstack/echo"
+  "{{.ProjectName}}/model/{{underline .DBName}}"
+)
+
+func {{upperCamel .TableName}}ESCreate(c echo.Context) error {
+    var obj {{underline .DBName}}.{{upperCamel .TableName}}
+    err :=c.Bind(&obj)
+    if err!=nil{
+    	return c.JSON(http.StatusOK, ResultMsg(200, err.Error(), ""))
+    }
+    return c.JSON(http.StatusOK,ResultMsg(200,"ok",obj.ESCreate()))
+}
+
+func {{upperCamel .TableName}}ESDelete(c echo.Context) error {
+    var obj {{underline .DBName}}.{{upperCamel .TableName}}
+    err :=c.Bind(&obj)
+    if err!=nil{
+        return c.JSON(http.StatusOK, ResultMsg(200, err.Error(), ""))
+    }
+    return c.JSON(http.StatusOK,ResultMsg(200,"ok",obj.ESDelete()))
+}
+
+func {{upperCamel .TableName}}ESUpdate(c echo.Context) error {
+    var obj {{underline .DBName}}.{{upperCamel .TableName}}
+    err :=c.Bind(&obj)
+    if err!=nil{
+        return c.JSON(http.StatusOK, ResultMsg(200, err.Error(), ""))
+    }
+    return c.JSON(http.StatusOK,ResultMsg(200,"ok",obj.ESUpdate()))
+}
+
+func ESGets{{upperCamel .TableName}}(c echo.Context) error {
+    id := c.QueryParam("id")
+    return c.JSON(http.StatusOK,ResultMsg(200,"ok",{{underline .DBName}}.ESGet{{upperCamel .TableName}}(id)))
+}

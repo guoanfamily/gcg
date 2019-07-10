@@ -8,11 +8,6 @@ import (
 
 var _ = time.Now
 
-type {{upperCamel .TableName}} struct {
-  {{ range $i, $v := .Columns }}
-  {{upperCamel $v.Field}} {{$v.GoType}} `db:"{{$v.Field}}" json:"{{$v.Field}}"` {{end}}
-}
-
 /*
 save
 */
@@ -20,14 +15,14 @@ func (obj *{{upperCamel .TableName}}) Save() int{
   var sql = ""
   var id int
   database := GetDB()
-  if (obj.Id == {{.PrimaryKeyDefault}}) {
+  if (obj.{{upperCamel .PrimaryKey}} == {{.PrimaryKeyDefault}}) {
     sql ="INSERT INTO `{{.TableName}}` ({{getInsertColumn .Columns}}) values ({{getTableFieldCounts .Columns}})"
     res := database.MustExec(sql,{{getObjColumn .Columns}} )
     retid, _ := res.LastInsertId()
     id = int(retid)
   }else{
       sql ="update `{{.TableName}}` set {{getUpdateColumn .Columns}} where id=?"
-      res := database.MustExec(sql,{{getObjColumn .Columns}},obj.Id )
+      res := database.MustExec(sql,{{getObjColumn .Columns}},obj.{{upperCamel .PrimaryKey}} )
       retid, _ := res.LastInsertId()
   	  id = int(retid)
   }
@@ -40,7 +35,7 @@ delete
 func (obj *{{upperCamel .TableName}}) Delete() bool{
     database := GetDB()
     sql := "update `{{.TableName}}` set deleted = 1  where id=?"
-    database.MustExec(sql, obj.Id)
+    database.MustExec(sql, obj.{{upperCamel .PrimaryKey}})
     return true
 }
 /*

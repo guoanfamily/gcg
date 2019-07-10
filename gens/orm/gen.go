@@ -32,7 +32,6 @@ var typeMap = [][]string{
 	{"float", "float64", "*float64"},
 	{"double", "float64", "*float64"},
 }
-
 // ColumnInfo table column info
 type ColumnInfo struct {
 	Field      string
@@ -47,7 +46,7 @@ type ColumnInfo struct {
 }
 
 var isInit = false
-
+var isEs =false
 // Gen gen
 func Gen(dbFile string, name string, tbs string) {
 	var databaseDir string
@@ -84,12 +83,19 @@ func Gen(dbFile string, name string, tbs string) {
 		//生成db连接代码
 		if isInit {
 			genutils.GenFileWithTargetPath("model/database/db.go.tmpl", databaseDir+"/gen_db.go", db)
+			//生成ES初始化代码
+			if isEs {
+				genutils.GenFileWithTargetPath("model/database/es.go.tmpl", databaseDir+"/gen_es.go", db)
+			}
 		}
 		sh.Command("gofmt", "-w", ".", sh.Dir(databaseDir)).Run()
 		//生成controller层表相关代码
 		for _, tableMeta := range db["TableMetas"].([]interface{}) {
 			model := tableMeta.(map[interface{}]interface{})
 			genutils.GenFileWithTargetPath("controller/gen_controller.go.tmpl", "controller/gen_"+model["TableName"].(string)+".go", tableMeta)
+			if isEs{
+				genutils.GenFileWithTargetPath("controller/gen_es_controller.go.tmpl", "controller/gen_"+model["TableName"].(string)+"_es.go", tableMeta)
+			}
 		}
 
 		//生成controller层公共代码
@@ -154,6 +160,12 @@ func genSource(db map[interface{}]interface{}) {
 	}
 	source := fmt.Sprintf("%s%s@tcp(%s:%d)/%s?charset=utf8", db["Username"], pwd, db["Host"], port, db["Database"])
 	db["Source"] = source
+	esinfo,ok:=db["ESHost"]
+	if ok {
+		isEs = true
+		db["ESSource"] = esinfo
+		db["IsES"] =true
+	}
 }
 
 // loadDBMetaInfo 查询db元信息
@@ -189,8 +201,11 @@ func loadDBMetaInfo(databaseDir string, tables string, dbInfo map[interface{}]in
 		if tables == "*" || utils.IsInArray(genTablesArray, rowName) {
 			tableMeta = loadTableMetaInfo(db, rowName, dbName, projectName)
 			model := tableMeta.(map[interface{}]interface{})
-			//service层代码生成
+			//service层代码生成 数据对象生成
+			genutils.GenFileWithTargetPath("model/model.go.tmpl", databaseDir+"/de_"+model["TableName"].(string)+".go", tableMeta)
 			genutils.GenFileWithTargetPath("model/database/table.go.tmpl", databaseDir+"/gen_"+model["TableName"].(string)+".go", tableMeta)
+			//es代码生成
+			genutils.GenFileWithTargetPath("model/database/esquery.go.tmpl", databaseDir+"/gen_"+model["TableName"].(string)+"._es.go", tableMeta)
 			tableMetas = append(tableMetas, tableMeta)
 		}
 	}
@@ -208,6 +223,7 @@ func loadTableMetaInfo(db *sql.DB, tableName, dbName string, projectName string)
 		primaryKeyExtra   = ""
 		autoIncrement     = false
 		columnInfoList    []*ColumnInfo
+		IsES			  = isEs
 	)
 	if rows, err = db.Query("SHOW COLUMNS FROM `" + tableName + "`"); err != nil {
 		log.Fatalf("%s", err)
@@ -247,6 +263,7 @@ func loadTableMetaInfo(db *sql.DB, tableName, dbName string, projectName string)
 		"PrimaryKeyExtra":   primaryKeyExtra,
 		"AutoIncrement":     autoIncrement,
 		"Columns":           columnInfoList,
+		"IsES":			  IsES,
 	}
 }
 
