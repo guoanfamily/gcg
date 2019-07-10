@@ -94,7 +94,7 @@ func controllerControllerGoTmpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "controller/controller.go.tmpl", size: 415, mode: os.FileMode(438), modTime: time.Unix(1551068690, 0)}
+	info := bindataFileInfo{name: "controller/controller.go.tmpl", size: 415, mode: os.FileMode(438), modTime: time.Unix(1562726307, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -114,7 +114,7 @@ func controllerGen_controllerGoTmpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "controller/gen_controller.go.tmpl", size: 1624, mode: os.FileMode(438), modTime: time.Unix(1551262327, 0)}
+	info := bindataFileInfo{name: "controller/gen_controller.go.tmpl", size: 1624, mode: os.FileMode(438), modTime: time.Unix(1562726307, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -134,7 +134,7 @@ func controllerGen_es_controllerGoTmpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "controller/gen_es_controller.go.tmpl", size: 1311, mode: os.FileMode(438), modTime: time.Unix(1562662755, 0)}
+	info := bindataFileInfo{name: "controller/gen_es_controller.go.tmpl", size: 1311, mode: os.FileMode(438), modTime: time.Unix(1562726307, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -154,7 +154,7 @@ func mainGoTmpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "main.go.tmpl", size: 95, mode: os.FileMode(438), modTime: time.Unix(1551068690, 0)}
+	info := bindataFileInfo{name: "main.go.tmpl", size: 95, mode: os.FileMode(438), modTime: time.Unix(1562726307, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -174,7 +174,7 @@ func modelDatabaseDbGoTmpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "model/database/db.go.tmpl", size: 558, mode: os.FileMode(438), modTime: time.Unix(1551068690, 0)}
+	info := bindataFileInfo{name: "model/database/db.go.tmpl", size: 558, mode: os.FileMode(438), modTime: time.Unix(1562726307, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -194,12 +194,12 @@ func modelDatabaseEsGoTmpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "model/database/es.go.tmpl", size: 740, mode: os.FileMode(438), modTime: time.Unix(1562655501, 0)}
+	info := bindataFileInfo{name: "model/database/es.go.tmpl", size: 740, mode: os.FileMode(438), modTime: time.Unix(1562726307, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
 
-var _modelDatabaseEsqueryGoTmpl = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\x9c\x94\xc1\x6e\xd3\x40\x10\x86\xcf\xb5\xe4\x77\x18\x22\x55\xb2\xab\x6a\x2d\xae\x48\xb9\xb4\x09\x51\x40\xaa\x10\x29\x9c\x90\xd0\xc6\x3b\x36\xdb\xda\xbb\xd6\x7a\x5d\x1a\x2c\x4b\xdc\x10\xaf\xc0\x85\x13\xaf\x01\x6f\x53\xc1\x5b\xa0\xd9\xb5\x93\xb4\x49\x81\xe2\x43\xb2\x3b\xfb\xcf\xce\xcc\x37\x63\x27\x09\xe4\xa8\xd0\x70\x8b\x02\x96\x2b\xc8\xd3\x3c\x0c\x2a\x9e\x5e\xf2\x1c\xa1\x6d\x1b\x25\xd0\x14\x52\x21\xb0\xc9\xc9\x19\x2f\xb1\xeb\xc2\x20\x0c\x64\x59\x69\x63\x21\x0a\x03\x80\x91\x95\x25\x8e\xdc\x2a\x2b\xad\x5f\xa4\x5a\x59\xbc\xa6\x4d\x4c\xf2\x2b\x6e\xe0\x2d\x8c\x81\x94\xec\x4c\xbf\x27\x5b\x72\x14\x06\xd3\x05\x9c\x1a\xe4\x16\xc3\xe0\x28\x09\x83\xac\x51\x29\x44\x7a\x79\x01\x47\x6d\xdb\x54\x15\x9a\x53\x5e\x62\x01\xec\x9c\x2f\x0b\xf4\xd1\x63\x98\x2e\xbc\x4f\x14\x83\x54\x16\x4d\xc6\x53\x6c\xbb\x96\xee\x04\xa8\x1a\x7b\x0c\x68\x0c\x3c\x19\x43\x5a\x48\x54\x96\xcd\x95\xc0\xeb\x28\x66\x74\x7c\x70\xe0\x77\xa3\x0f\xef\x72\x31\x5a\xdb\x04\x05\x65\xb7\x63\xbe\x30\xb2\xe4\x66\xf5\x1c\x57\x5d\x37\x08\x4f\xb4\x58\x3d\xab\xb5\x22\xf9\x60\x9b\xe8\xa8\xaf\x96\x9d\xf0\xf4\x32\x37\xba\x51\x22\x8a\x63\x77\x2a\x33\x97\xcc\xa3\x31\x28\x59\x40\xeb\x3d\xb2\xd2\xd2\xed\xca\x16\x2a\x42\x63\xbc\xb2\xa3\x5f\x83\xb6\x31\x8a\x8a\x60\x73\x11\x06\xdd\x16\x27\x81\x05\x3e\x94\xd3\xc4\xf9\x44\x31\x2c\xb5\x2e\x5c\x70\x0a\x51\xdf\x05\x34\xc8\xd8\x2e\x9b\xcd\xf3\x8f\x8c\x36\xcf\x9f\xb8\x00\xec\x01\xe3\x9f\x6a\x03\x86\x4d\x8d\xd1\x66\xed\xe2\xb3\x77\x80\x32\x5e\xd4\xe8\xad\x9d\xff\x5b\x33\xcd\xa2\x91\x47\x45\x95\x36\x85\x85\xc3\xfa\x8d\x1a\x1d\xd3\x8e\xbd\x74\x96\x78\x00\xe1\xae\xb2\xa6\xc1\x9e\xf4\x9a\xf5\xab\x4a\x3c\x78\x26\xbd\x4f\xcf\xda\x17\xb4\x07\xf5\xa0\x5a\xb3\xda\x8f\xfc\x01\xb0\x27\x3a\xdd\x4c\xe3\xdf\xb8\xdf\x43\xfd\x3e\xe6\x8e\xed\x36\xd9\xc6\xa5\x0f\xf4\x69\xd8\x8f\x75\x17\x6a\x8f\x74\x86\xb6\xde\x02\x3a\x5d\xcc\xd0\xde\xcb\x33\x92\x02\x6a\x6b\xa4\xca\x6f\xbd\xe2\x3e\x61\xfa\x96\x50\x3b\xb6\x0e\xc8\x9c\x24\xbf\x3e\x7e\xf9\xf9\xe3\x93\x14\x37\x5f\xbf\xdd\x7c\xfe\x4e\xb6\x1c\xed\xe3\xbb\x1d\x98\xa1\xdd\x99\xf4\xb9\x88\xa4\x88\xd9\x7f\x90\xdb\xf7\x2a\x77\xbd\x9e\xa2\xb3\xa7\x74\xc7\xa0\x4f\x92\x1a\x2d\x5c\xf1\xa2\xe9\x87\x97\xea\x18\x3b\xdd\x42\x37\x26\xc5\xdd\x59\x9e\x69\x0b\x42\xa7\x4d\x89\x8a\x46\x19\xa4\x82\x2b\x34\xb5\xd4\x0a\x0e\x05\x64\x46\x97\x20\xa9\x16\x38\xac\x8f\xc1\xae\xaa\x75\x63\xdc\xad\x73\xd1\x2f\x5e\x7b\x9f\xc1\x4c\x1e\xfd\xfa\x7c\x55\xe1\x26\xed\xbe\x7f\x7a\x79\xe1\xda\xf7\x3b\x00\x00\xff\xff\x1c\xc6\x58\x50\x1d\x06\x00\x00")
+var _modelDatabaseEsqueryGoTmpl = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\x9c\x94\xc1\x6a\xdb\x40\x10\x86\xcf\x11\xe8\x1d\xa6\x86\x80\x14\xc2\x8a\x5e\x0b\xbe\x24\x76\x8d\x5b\x08\xa5\x4e\x7b\x2a\x94\xb5\x76\x24\x36\x91\x76\xc5\x6a\x95\xc6\x08\x41\x6f\xa5\xaf\xd0\x4b\x4f\x7d\x8d\xf6\x6d\x42\xfb\x16\x65\x76\x25\xdb\x49\xec\xa4\xa9\x0e\xf6\xee\xec\x3f\x33\x3b\xdf\x8c\x94\x24\x90\xa3\x42\xc3\x2d\x0a\x58\xae\x20\x4f\xf3\x30\xa8\x78\x7a\xc9\x73\x84\xb6\x6d\x94\x40\x53\x48\x85\xc0\x26\x27\x67\xbc\xc4\xae\x0b\x83\x30\x90\x65\xa5\x8d\x85\x28\x0c\x00\x46\x56\x96\x38\x72\xab\xac\xb4\x7e\x91\x6a\x65\xf1\x9a\x36\x31\xc9\xaf\xb8\x81\x8f\x30\x06\x52\xb2\x33\xfd\x89\x6c\xc9\x51\x18\x4c\x17\x70\x6a\x90\x5b\x0c\x83\xa3\x24\x0c\xb2\x46\xa5\x10\xe9\xe5\x05\x1c\xb5\x6d\x53\x55\x68\x4e\x79\x89\x05\xb0\x73\xbe\x2c\xd0\x67\x8f\x61\xba\xf0\x3e\x51\x0c\x52\x59\x34\x19\x4f\xb1\xed\x5a\x8a\x09\x50\x35\xf6\x18\xd0\x18\x78\x31\x86\xb4\x90\xa8\x2c\x9b\x2b\x81\xd7\x51\xcc\xe8\xf8\xe0\xc0\xef\x46\xed\x76\xcc\xd1\xfa\x50\x50\x76\x76\x3b\xf9\x1b\x23\x4b\x6e\x56\xaf\x71\xd5\x75\x83\xf0\x44\x8b\xd5\xab\x5a\x2b\x92\x0f\xb6\x89\x8e\xfa\xb2\xd9\x09\x4f\x2f\x73\xa3\x1b\x25\xa2\x38\x76\xa7\x32\x73\xb7\x7a\x36\x06\x25\x0b\x68\xbd\x47\x56\x5a\x8a\xae\x6c\xa1\x22\x34\xc6\x2b\x3b\xfa\x35\x68\x1b\xa3\xa8\x1a\x36\x17\x61\xd0\x6d\x01\x13\x58\xe0\x53\x81\x4d\x9c\x4f\x14\xc3\x52\xeb\xc2\x25\xa7\x14\xf5\x5d\x52\x83\x8c\x3d\x00\x69\xf3\xfc\x23\xac\xcd\xf3\x10\x20\x80\x1d\x84\xfc\x53\x6d\x08\xb1\xa9\x31\xda\xac\x5d\x7c\x19\x8e\x54\xc6\x8b\x1a\xbd\xb5\xf3\x7f\x6b\xb8\x59\x34\xf2\xcc\xa8\xe4\xa6\xb0\x70\x58\x7f\x50\xa3\x63\xda\xb1\xb7\xce\x12\x0f\x44\x5c\x28\x6b\x1a\xec\x91\xaf\xa1\xbf\xab\xc4\x93\xa7\xd4\xfb\xf4\xd0\x7d\x41\x3b\x98\x0f\xaa\x35\xab\x47\xd8\x3f\x81\xfa\x44\xa7\x9b\xf9\x7c\xac\x01\x7b\xf0\xef\x83\xef\x20\x6f\x23\x6e\x5c\x1d\x40\x5f\x8d\xdd\x7c\xef\xd3\xed\xd9\xce\xd0\xd6\x5b\x64\xa7\x8b\x19\xda\xbd\x60\x23\x29\xa0\xb6\x46\xaa\xfc\xd6\xdb\xef\x2f\x4c\x9f\x19\xea\xcb\xd6\x01\x99\x93\xe4\xcf\xe7\x6f\xbf\x7f\x7d\x91\xe2\xe6\xfb\x8f\x9b\xaf\x3f\xc9\x96\xa3\x7d\x7e\xb7\x15\x33\xb4\xfb\x67\x7f\x2e\x22\x29\x62\xf6\x1f\x08\x77\xbd\xe5\x5d\xaf\xa7\x6b\xb0\x97\x14\x63\xd0\x27\x49\x8d\x16\xae\x78\xd1\xf4\xe3\x4c\x05\x8d\x9d\x6e\xa1\x1b\x93\xe2\xfd\xe9\x9e\x69\x0b\x42\xa7\x4d\x89\x8a\x86\x1b\xa4\x82\x2b\x34\xb5\xd4\x0a\x0e\x05\x64\x46\x97\x20\xa9\x28\x38\xac\x8f\xc1\xae\xaa\x75\x87\x5c\xd4\xb9\xe8\x17\xef\xbd\xcf\x60\x26\x8f\x7e\x7d\xbe\xaa\x70\x73\xed\xbe\x91\x7a\x79\xe1\xfa\xf8\x37\x00\x00\xff\xff\x89\xde\x6f\x27\x41\x06\x00\x00")
 
 func modelDatabaseEsqueryGoTmplBytes() ([]byte, error) {
 	return bindataRead(
@@ -214,7 +214,7 @@ func modelDatabaseEsqueryGoTmpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "model/database/esquery.go.tmpl", size: 1565, mode: os.FileMode(438), modTime: time.Unix(1562721607, 0)}
+	info := bindataFileInfo{name: "model/database/esquery.go.tmpl", size: 1601, mode: os.FileMode(438), modTime: time.Unix(1562728411, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -234,7 +234,7 @@ func modelDatabaseTableGoTmpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "model/database/table.go.tmpl", size: 1976, mode: os.FileMode(438), modTime: time.Unix(1562721607, 0)}
+	info := bindataFileInfo{name: "model/database/table.go.tmpl", size: 1976, mode: os.FileMode(438), modTime: time.Unix(1562726307, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -254,7 +254,7 @@ func modelModelGoTmpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "model/model.go.tmpl", size: 264, mode: os.FileMode(438), modTime: time.Unix(1562667694, 0)}
+	info := bindataFileInfo{name: "model/model.go.tmpl", size: 264, mode: os.FileMode(438), modTime: time.Unix(1562726307, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -274,7 +274,7 @@ func routerDuplicatequestGoTmpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "router/duplicateQuest.go.tmpl", size: 1585, mode: os.FileMode(438), modTime: time.Unix(1551068690, 0)}
+	info := bindataFileInfo{name: "router/duplicateQuest.go.tmpl", size: 1585, mode: os.FileMode(438), modTime: time.Unix(1562726307, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -294,7 +294,7 @@ func routerGen_routerGoTmpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "router/gen_router.go.tmpl", size: 949, mode: os.FileMode(438), modTime: time.Unix(1562664580, 0)}
+	info := bindataFileInfo{name: "router/gen_router.go.tmpl", size: 949, mode: os.FileMode(438), modTime: time.Unix(1562726307, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -314,7 +314,7 @@ func routerRouterGoTmpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "router/router.go.tmpl", size: 523, mode: os.FileMode(438), modTime: time.Unix(1551068690, 0)}
+	info := bindataFileInfo{name: "router/router.go.tmpl", size: 523, mode: os.FileMode(438), modTime: time.Unix(1562726307, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -371,18 +371,18 @@ func AssetNames() []string {
 
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
-	"controller/controller.go.tmpl": controllerControllerGoTmpl,
-	"controller/gen_controller.go.tmpl": controllerGen_controllerGoTmpl,
+	"controller/controller.go.tmpl":        controllerControllerGoTmpl,
+	"controller/gen_controller.go.tmpl":    controllerGen_controllerGoTmpl,
 	"controller/gen_es_controller.go.tmpl": controllerGen_es_controllerGoTmpl,
-	"main.go.tmpl": mainGoTmpl,
-	"model/database/db.go.tmpl": modelDatabaseDbGoTmpl,
-	"model/database/es.go.tmpl": modelDatabaseEsGoTmpl,
-	"model/database/esquery.go.tmpl": modelDatabaseEsqueryGoTmpl,
-	"model/database/table.go.tmpl": modelDatabaseTableGoTmpl,
-	"model/model.go.tmpl": modelModelGoTmpl,
-	"router/duplicateQuest.go.tmpl": routerDuplicatequestGoTmpl,
-	"router/gen_router.go.tmpl": routerGen_routerGoTmpl,
-	"router/router.go.tmpl": routerRouterGoTmpl,
+	"main.go.tmpl":                         mainGoTmpl,
+	"model/database/db.go.tmpl":            modelDatabaseDbGoTmpl,
+	"model/database/es.go.tmpl":            modelDatabaseEsGoTmpl,
+	"model/database/esquery.go.tmpl":       modelDatabaseEsqueryGoTmpl,
+	"model/database/table.go.tmpl":         modelDatabaseTableGoTmpl,
+	"model/model.go.tmpl":                  modelModelGoTmpl,
+	"router/duplicateQuest.go.tmpl":        routerDuplicatequestGoTmpl,
+	"router/gen_router.go.tmpl":            routerGen_routerGoTmpl,
+	"router/router.go.tmpl":                routerRouterGoTmpl,
 }
 
 // AssetDir returns the file names below a certain
@@ -424,26 +424,27 @@ type bintree struct {
 	Func     func() (*asset, error)
 	Children map[string]*bintree
 }
+
 var _bintree = &bintree{nil, map[string]*bintree{
 	"controller": &bintree{nil, map[string]*bintree{
-		"controller.go.tmpl": &bintree{controllerControllerGoTmpl, map[string]*bintree{}},
-		"gen_controller.go.tmpl": &bintree{controllerGen_controllerGoTmpl, map[string]*bintree{}},
+		"controller.go.tmpl":        &bintree{controllerControllerGoTmpl, map[string]*bintree{}},
+		"gen_controller.go.tmpl":    &bintree{controllerGen_controllerGoTmpl, map[string]*bintree{}},
 		"gen_es_controller.go.tmpl": &bintree{controllerGen_es_controllerGoTmpl, map[string]*bintree{}},
 	}},
 	"main.go.tmpl": &bintree{mainGoTmpl, map[string]*bintree{}},
 	"model": &bintree{nil, map[string]*bintree{
 		"database": &bintree{nil, map[string]*bintree{
-			"db.go.tmpl": &bintree{modelDatabaseDbGoTmpl, map[string]*bintree{}},
-			"es.go.tmpl": &bintree{modelDatabaseEsGoTmpl, map[string]*bintree{}},
+			"db.go.tmpl":      &bintree{modelDatabaseDbGoTmpl, map[string]*bintree{}},
+			"es.go.tmpl":      &bintree{modelDatabaseEsGoTmpl, map[string]*bintree{}},
 			"esquery.go.tmpl": &bintree{modelDatabaseEsqueryGoTmpl, map[string]*bintree{}},
-			"table.go.tmpl": &bintree{modelDatabaseTableGoTmpl, map[string]*bintree{}},
+			"table.go.tmpl":   &bintree{modelDatabaseTableGoTmpl, map[string]*bintree{}},
 		}},
 		"model.go.tmpl": &bintree{modelModelGoTmpl, map[string]*bintree{}},
 	}},
 	"router": &bintree{nil, map[string]*bintree{
 		"duplicateQuest.go.tmpl": &bintree{routerDuplicatequestGoTmpl, map[string]*bintree{}},
-		"gen_router.go.tmpl": &bintree{routerGen_routerGoTmpl, map[string]*bintree{}},
-		"router.go.tmpl": &bintree{routerRouterGoTmpl, map[string]*bintree{}},
+		"gen_router.go.tmpl":     &bintree{routerGen_routerGoTmpl, map[string]*bintree{}},
+		"router.go.tmpl":         &bintree{routerRouterGoTmpl, map[string]*bintree{}},
 	}},
 }}
 
@@ -493,4 +494,3 @@ func _filePath(dir, name string) string {
 	cannonicalName := strings.Replace(name, "\\", "/", -1)
 	return filepath.Join(append([]string{dir}, strings.Split(cannonicalName, "/")...)...)
 }
-

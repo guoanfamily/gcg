@@ -15,7 +15,7 @@ ES Create
 func (obj *{{upperCamel .TableName}}) ESCreate() interface{}{
 
   put, err := client.Index().
-  		Index("zhgd").
+  		Index("{.TableName}}").
   		Id(obj.{{upperCamel .PrimaryKey}}).
   		BodyJson(obj).
   		Do(context.Background())
@@ -29,7 +29,7 @@ func (obj *{{upperCamel .TableName}}) ESCreate() interface{}{
 ES delete
 */
 func (obj *{{upperCamel .TableName}}) ESDelete() bool{
-    res, err := client.Delete().Index("zhgd").
+    res, err := client.Delete().Index("{.TableName}}").
             Id(obj.{{upperCamel .PrimaryKey}}).
             Do(context.Background())
     if err != nil {
@@ -46,7 +46,7 @@ ES Update
 */
 func (obj *{{upperCamel .TableName}}) ESUpdate() bool {
   res, err := client.Update().
-      Index("zhgd").
+      Index("{.TableName}}").
       Id(obj.{{upperCamel .PrimaryKey}}).
       Doc(obj).
       Do(context.Background())
@@ -63,7 +63,7 @@ ES Gets
 func ESGet{{upperCamel .TableName}}(id string) interface{} {
   var obj interface{}
   //通过id查找
-  get1, err := client.Get().Index("zhgd").Id(id).Do(context.Background())
+  get1, err := client.Get().Index("{.TableName}}").Id(id).Do(context.Background())
   if err != nil {
       fmt.Println(err)
   }
