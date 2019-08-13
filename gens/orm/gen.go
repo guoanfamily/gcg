@@ -16,7 +16,7 @@ import (
 )
 
 var typeMap = [][]string{
-	{"int", "int32", "*int32"},
+	{"int", "int", "*int"},
 	{"tinyint", "byte", "*byte"},
 	{"bigint", "int64", "*int64"},
 	{"varchar", "string", "*string"},
@@ -210,7 +210,9 @@ func loadDBMetaInfo(databaseDir string, tables string, dbInfo map[interface{}]in
 			genutils.GenFileWithTargetPath("model/model.go.tmpl", databaseDir+"/de_"+model["TableName"].(string)+".go", tableMeta)
 			genutils.GenFileWithTargetPath("model/database/table.go.tmpl", databaseDir+"/gen_"+model["TableName"].(string)+".go", tableMeta)
 			//es代码生成
-			genutils.GenFileWithTargetPath("model/database/esquery.go.tmpl", databaseDir+"/gen_"+model["TableName"].(string)+"._es.go", tableMeta)
+			if isEs {
+				genutils.GenFileWithTargetPath("model/database/esquery.go.tmpl", databaseDir+"/gen_"+model["TableName"].(string)+"._es.go", tableMeta)
+			}
 			tableMetas = append(tableMetas, tableMeta)
 		}
 	}
@@ -250,7 +252,7 @@ func loadTableMetaInfo(db *sql.DB, tableName, dbName string, projectName string)
 			primaryKey = c.Field
 			primaryKeyType = c.GoType
 			primaryKeyExtra = c.Extra
-			if primaryKeyType != "int32" {
+			if primaryKeyType != "int" {
 				primaryKeyDefault = "\"\""
 			}
 			if c.Extra == "auto_increment" {
