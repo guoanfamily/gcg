@@ -4,6 +4,8 @@ package {{underline .DBName}}
 import (
   "time"
   "fmt"
+  {{if eq .PrimaryKeyType "int"}}
+  "strconv" {{- end}}
   "context"
 )
 
@@ -15,8 +17,12 @@ ES Create
 func (obj *{{upperCamel .TableName}}) ESCreate() interface{}{
 
   put, err := client.Index().
-  		Index("zhgd").
-  		Id(obj.{{upperCamel .PrimaryKey}}).
+  		Index("{{.TableName}}").
+          {{if eq .PrimaryKeyType "int"}}
+           Id(strconv.Itoa(obj.{{upperCamel .PrimaryKey}})).
+           {{- else}}
+           Id(obj.{{upperCamel .PrimaryKey}}).
+           {{- end}}
   		BodyJson(obj).
   		Do(context.Background())
   	if err != nil {
@@ -29,8 +35,12 @@ func (obj *{{upperCamel .TableName}}) ESCreate() interface{}{
 ES delete
 */
 func (obj *{{upperCamel .TableName}}) ESDelete() bool{
-    res, err := client.Delete().Index("zhgd").
-            Id(obj.{{upperCamel .PrimaryKey}}).
+    res, err := client.Delete().Index("{{.TableName}}").
+          {{if eq .PrimaryKeyType "int"}}
+         Id(strconv.Itoa(obj.{{upperCamel .PrimaryKey}})).
+         {{- else}}
+         Id(obj.{{upperCamel .PrimaryKey}}).
+         {{- end}}
             Do(context.Background())
     if err != nil {
         println(err.Error())
@@ -46,8 +56,12 @@ ES Update
 */
 func (obj *{{upperCamel .TableName}}) ESUpdate() bool {
   res, err := client.Update().
-      Index("zhgd").
-      Id(obj.{{upperCamel .PrimaryKey}}).
+      Index("{{.TableName}}").
+     {{if eq .PrimaryKeyType "int"}}
+        Id(strconv.Itoa(obj.{{upperCamel .PrimaryKey}})).
+        {{- else}}
+        Id(obj.{{upperCamel .PrimaryKey}}).
+        {{- end}}
       Doc(obj).
       Do(context.Background())
   if err != nil {
@@ -63,7 +77,7 @@ ES Gets
 func ESGet{{upperCamel .TableName}}(id string) interface{} {
   var obj interface{}
   //通过id查找
-  get1, err := client.Get().Index("zhgd").Id(id).Do(context.Background())
+  get1, err := client.Get().Index("{{.TableName}}").Id(id).Do(context.Background())
   if err != nil {
       fmt.Println(err)
   }

@@ -11,7 +11,7 @@ func {{upperCamel .TableName}}Save(c echo.Context) error {
     var obj {{underline .DBName}}.{{upperCamel .TableName}}
     err :=c.Bind(&obj)
     if err!=nil{
-    	return c.JSON(http.StatusOK, ResultMsg(200, err.Error(), ""))
+    	return c.JSON(http.StatusOK, ResultMsg(400, err.Error(), ""))
     }
     return c.JSON(http.StatusOK,ResultMsg(200,"ok",obj.Save()))
 }
@@ -20,7 +20,7 @@ func {{upperCamel .TableName}}Delete(c echo.Context) error {
     var obj {{underline .DBName}}.{{upperCamel .TableName}}
     err :=c.Bind(&obj)
     if err!=nil{
-        return c.JSON(http.StatusOK, ResultMsg(200, err.Error(), ""))
+        return c.JSON(http.StatusOK, ResultMsg(400, err.Error(), ""))
     }
     return c.JSON(http.StatusOK,ResultMsg(200,"ok",obj.Delete()))
 }
@@ -35,6 +35,15 @@ func Get{{upperCamel .TableName}}Where(c echo.Context) error {
         res ={{underline .DBName}}.Get{{upperCamel .TableName}}Where(cond)
     }
     return c.JSON(http.StatusOK,ResultMsg(200,"ok",res))
+}
+
+func Get{{upperCamel .TableName}}All(c echo.Context) error {
+    var obj {{underline .DBName}}.{{upperCamel .TableName}}
+    err :=c.Bind(&obj)
+    if err!=nil{
+        return c.JSON(http.StatusOK, ResultMsg(400, err.Error(), ""))
+    }
+    return c.JSON(http.StatusOK,ResultMsg(200,"ok",{{underline .DBName}}.Get{{upperCamel .TableName}}All(obj)))
 }
 
 func Get{{upperCamel .TableName}}First(c echo.Context) error {

@@ -56,6 +56,27 @@ func Get{{upperCamel .TableName}}Where(cond string, args ...interface{}) []*{{up
 }
 
 /*
+Get List by All condition
+*/
+func Get{{upperCamel .TableName}}All(obj {{upperCamel .TableName}}) []*{{upperCamel .TableName}} {
+  objs := []*{{upperCamel .TableName}}{}
+  database := GetDB()
+  sql :="SELECT {{getTableFieldNames .Columns}} FROM `{{.TableName}}` WHERE 1=1 "
+  {{ range $i, $v := .Columns }}
+  {{if contains $v.GoType "string"}}
+  if obj.{{upperCamel $v.Field}} != ""{
+    sql+=" and  `{{$v.Field}}` like %"+ obj.{{upperCamel $v.Field}}+"% "
+  }
+  {{end}}
+  {{end}}
+  err := database.Select(&objs, sql)
+  if err != nil {
+    fmt.Println(err)
+  }
+  return objs
+}
+
+/*
 Get First by Where
 */
 func Get{{upperCamel .TableName}}First(cond string, args ...interface{})  *{{upperCamel .TableName}} {
