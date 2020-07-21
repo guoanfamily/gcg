@@ -16,7 +16,7 @@ import (
 )
 
 var typeMap = [][]string{
-	{"int", "int32", "*int32"},
+	{"int", "int", "*int"},
 	{"tinyint", "byte", "*byte"},
 	{"bigint", "int64", "*int64"},
 	{"varchar", "string", "*string"},
@@ -32,21 +32,26 @@ var typeMap = [][]string{
 	{"float", "float64", "*float64"},
 	{"double", "float64", "*float64"},
 }
+
 // ColumnInfo table column info
 type ColumnInfo struct {
 	Field      string
 	Type       string
+	Collation  *string
 	Null       string
 	Key        string
 	Default    *string
 	Extra      string
+	Privileges string
+	Comment    string
 	GoType     string
 	ThriftType string
 	Required   string
 }
 
 var isInit = false
-var isEs =false
+var isEs = false
+
 // Gen gen
 func Gen(dbFile string, name string, tbs string) {
 	var databaseDir string
@@ -93,7 +98,7 @@ func Gen(dbFile string, name string, tbs string) {
 		for _, tableMeta := range db["TableMetas"].([]interface{}) {
 			model := tableMeta.(map[interface{}]interface{})
 			genutils.GenFileWithTargetPath("controller/gen_controller.go.tmpl", "controller/gen_"+model["TableName"].(string)+".go", tableMeta)
-			if isEs{
+			if isEs {
 				genutils.GenFileWithTargetPath("controller/gen_es_controller.go.tmpl", "controller/gen_"+model["TableName"].(string)+"_es.go", tableMeta)
 			}
 		}
@@ -160,11 +165,11 @@ func genSource(db map[interface{}]interface{}) {
 	}
 	source := fmt.Sprintf("%s%s@tcp(%s:%d)/%s?charset=utf8", db["Username"], pwd, db["Host"], port, db["Database"])
 	db["Source"] = source
-	esinfo,ok:=db["ESHost"]
+	esinfo, ok := db["ESHost"]
 	if ok {
 		isEs = true
 		db["ESSource"] = esinfo
-		db["IsES"] =true
+		db["IsES"] = true
 	}
 }
 
@@ -205,7 +210,9 @@ func loadDBMetaInfo(databaseDir string, tables string, dbInfo map[interface{}]in
 			genutils.GenFileWithTargetPath("model/model.go.tmpl", databaseDir+"/de_"+model["TableName"].(string)+".go", tableMeta)
 			genutils.GenFileWithTargetPath("model/database/table.go.tmpl", databaseDir+"/gen_"+model["TableName"].(string)+".go", tableMeta)
 			//es代码生成
-			genutils.GenFileWithTargetPath("model/database/esquery.go.tmpl", databaseDir+"/gen_"+model["TableName"].(string)+"._es.go", tableMeta)
+			if isEs {
+				genutils.GenFileWithTargetPath("model/database/esquery.go.tmpl", databaseDir+"/gen_"+model["TableName"].(string)+"._es.go", tableMeta)
+			}
 			tableMetas = append(tableMetas, tableMeta)
 		}
 	}
@@ -223,15 +230,15 @@ func loadTableMetaInfo(db *sql.DB, tableName, dbName string, projectName string)
 		primaryKeyExtra   = ""
 		autoIncrement     = false
 		columnInfoList    []*ColumnInfo
-		IsES			  = isEs
+		IsES              = isEs
 	)
-	if rows, err = db.Query("SHOW COLUMNS FROM `" + tableName + "`"); err != nil {
+	if rows, err = db.Query("SHOW FULL COLUMNS FROM `" + tableName + "`"); err != nil {
 		log.Fatalf("%s", err)
 	}
 
 	for rows.Next() {
 		c := new(ColumnInfo)
-		if err = rows.Scan(&c.Field, &c.Type, &c.Null, &c.Key, &c.Default, &c.Extra); err != nil {
+		if err = rows.Scan(&c.Field, &c.Type, &c.Collation, &c.Null, &c.Key, &c.Default, &c.Extra, &c.Privileges, &c.Comment); err != nil {
 			log.Fatalf("%s", err)
 		}
 		c.GoType = toGoType(c.Type, c.Null)
@@ -245,7 +252,7 @@ func loadTableMetaInfo(db *sql.DB, tableName, dbName string, projectName string)
 			primaryKey = c.Field
 			primaryKeyType = c.GoType
 			primaryKeyExtra = c.Extra
-			if primaryKeyType != "int32" {
+			if primaryKeyType != "int" {
 				primaryKeyDefault = "\"\""
 			}
 			if c.Extra == "auto_increment" {
@@ -263,7 +270,7 @@ func loadTableMetaInfo(db *sql.DB, tableName, dbName string, projectName string)
 		"PrimaryKeyExtra":   primaryKeyExtra,
 		"AutoIncrement":     autoIncrement,
 		"Columns":           columnInfoList,
-		"IsES":			  IsES,
+		"IsES":              IsES,
 	}
 }
 
@@ -390,7 +397,7 @@ func strFirstToUpper(str string) string {
 	for y := 0; y < len(temp); y++ {
 		vv := []rune(temp[y])
 		for i := 0; i < len(vv); i++ {
-			if i == 0 && vv[i]>96 {
+			if i == 0 && vv[i] > 96 {
 				vv[i] -= 32
 				upperStr += string(vv[i]) // + string(vv[i+1])
 			} else {
