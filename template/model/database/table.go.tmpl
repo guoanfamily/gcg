@@ -65,7 +65,7 @@ func Get{{upperCamel .TableName}}All(obj {{upperCamel .TableName}}) []*{{upperCa
   {{ range $i, $v := .Columns }}
   {{if contains $v.GoType "string"}}
   if obj.{{upperCamel $v.Field}} != ""{
-    sql+=" and  `{{$v.Field}}` like %"+ obj.{{upperCamel $v.Field}}+"% "
+    sql+=" and  `{{$v.Field}}` like '%"+ obj.{{upperCamel $v.Field}}+"%' "
   }
   {{end}}
   {{end}}
