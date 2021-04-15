@@ -16,13 +16,20 @@ import (
 )
 
 var typeMap = [][]string{
+	{"bit", "int", "*int"},
 	{"int", "int", "*int"},
+	{"smallint", "int", "*int"},
+	{"mediumint", "int", "*int"},
 	{"tinyint", "byte", "*byte"},
 	{"bigint", "int64", "*int64"},
 	{"varchar", "string", "*string"},
 	{"char", "string", "*string"},
 	{"text", "string", "*string"},
+	{"mediumtext", "string", "*string"},
 	{"longtext", "string", "*string"},
+	{"longblob", "string", "*string"},
+	{"blob", "string", "*string"},
+	{"set", "string", "*string"},
 	{"json", "string", "*string"},
 	{"tinytext", "string", "*string"},
 	{"datetime", "time.Time", "*time.Time"},
