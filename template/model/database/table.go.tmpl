@@ -61,9 +61,9 @@ Get List by All condition
 func Get{{upperCamel .TableName}}All(obj {{upperCamel .TableName}}) []*{{upperCamel .TableName}} {
   objs := []*{{upperCamel .TableName}}{}
   database := GetDB()
-  sql :="SELECT {{getTableFieldNames .Columns}} FROM `{{.TableName}}` WHERE 1=1 "
+  sql :="SELECT {{getTableFieldNames .Columns}} FROM `{{.TableName}}` WHERE deleted= "+ obj.Deleted+" ""
   {{ range $i, $v := .Columns }}
-  {{if contains $v.GoType "string"}}
+  {{if eq $v.GoType "string"}}
   if obj.{{upperCamel $v.Field}} != ""{
     sql+=" and  `{{$v.Field}}` like %"+ obj.{{upperCamel $v.Field}}+"% "
   }
